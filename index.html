@@ -454,7 +454,7 @@
           </a>
           <a class="btn btn-ghost" href="#screenshots">See the forest</a>
         </div>
-        <div class="meta"><span>Release 1.0.0</span><span>Free</span><span>Windows · macOS · Linux</span><span>Co-op</span></div>
+        <div class="meta"><span>Beta 1.1.0</span><span>Free</span><span>Windows · macOS · Linux</span><span>Co-op</span></div>
       </div>
     </div>
 
@@ -724,7 +724,7 @@
   <footer>
     <div class="wrap">
       <p class="title">Blue Mushroom's Brewing Quest</p>
-      <p>Made By the Bluemushroom Team</p>
+      <p>Made by the Blue Mushrooms Brewing Quest team · © 2026 · How many people Seen This Website: <span id="visit-count">…</span></p>
     </div>
   </footer>
 
@@ -736,6 +736,24 @@
       <button class="next" id="lb-next" aria-label="Next screenshot"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
   </dialog>
+
+  <script>
+  /* ---------- unique visitor counter: each browser is counted once ---------- */
+  (() => {
+    const el = document.getElementById("visit-count");
+    const api = "https://abacus.jasoncameron.dev";
+    const ns = "bluemushroomquest.com", key = "visitors";
+    let seen = false;
+    try { seen = localStorage.getItem("bmq-counted") === "1"; } catch {}
+    fetch(`${api}/${seen ? "get" : "hit"}/${ns}/${key}`)
+      .then(r => { if (!r.ok) throw r; return r.json(); })
+      .then(d => {
+        el.textContent = Number(d.value).toLocaleString();
+        if (!seen) { try { localStorage.setItem("bmq-counted", "1"); } catch {} }
+      })
+      .catch(() => { el.textContent = "—"; });
+  })();
+  </script>
 
   <script>
   (() => {
